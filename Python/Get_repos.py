@@ -7,9 +7,8 @@ from git import Repo
 from timeit import default_timer as timer
 
 def get_user():
-    name = 'lordofthejinx'
-    #name = input('''The name of the repo-user/owner:\n
-#Basically lookin for https://github.com/<user>: \n ''' )
+    name = input('''The name of the repo-user/owner:\n
+Basically lookin for https://github.com/<user>: \n ''' )
     return name
 
 def get_list():
