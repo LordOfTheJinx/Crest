@@ -7,21 +7,29 @@ from git import Repo
 from timeit import default_timer as timer
 
 def get_user():
-    name = input('''The name of the repo-user/owner:\n
-    Basically lookin for https://github.com/<user>''' )
+    name = 'lordofthejinx'
+    #name = input('''The name of the repo-user/owner:\n
+#Basically lookin for https://github.com/<user>: \n ''' )
     return name
 
 def get_list():
     username = get_user()
     global repo_list
     url = "https://api.github.com/users/{}/repos".format(username)
+    url_name = "https://api.github.com/users/{}".format(username)
     payload={}
     headers = {}
-    response = requests.request("GET", url, headers=headers, data=payload)
-    resp_json = response.json()
-    for iter in resp_json:
-        repo_list.append(iter['clone_url'])
-    #print(repo_list)
+    try:
+        response_user = requests.request("GET", url_name, headers=headers, data=payload)
+        if response_user.status_code == 200:
+            response = requests.request("GET", url, headers=headers, data=payload)
+            resp_json = response.json()
+            for iter in resp_json:
+                repo_list.append(iter['clone_url'])
+            if wish == 1:
+                print(repo_list)
+    except Exception as arr:
+        print(arr)
 
 def get_clone():
     get_list()
